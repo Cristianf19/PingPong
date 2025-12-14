@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textStatus: {fileID: 2089234525}
   nameInput: {fileID: 47644334}
-  btnConect: {fileID: 0}
+  btnConect: {fileID: 861547554}
 --- !u!114 &1277880017
 MonoBehaviour:
   m_ObjectHideFlags: 0
