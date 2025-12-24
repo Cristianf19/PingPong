@@ -2209,7 +2209,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textStatus: {fileID: 2089234525}
   nameInput: {fileID: 47644334}
-  btnConect: {fileID: 861547554}
+  textNameRoom: {fileID: 1954219373}
+  btnConect: {fileID: 1802959168}
+  btnCreateRoom: {fileID: 861547554}
+  windowHandler: {fileID: 1277880017}
+  contentPlayer: {fileID: 1988166874}
+  nicknamePlayer: {fileID: 5637283828907919786, guid: 66b8d44f720c35141ba314d746b8b05a, type: 3}
 --- !u!114 &1277880017
 MonoBehaviour:
   m_ObjectHideFlags: 0

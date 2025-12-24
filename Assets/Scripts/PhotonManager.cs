@@ -3,16 +3,28 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using UnityEngine.Rendering.Universal;
+using UnityEditor;
+using System.Collections;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public TMP_Text textStatus;
     public TMP_InputField nameInput;
+    public TMP_Text textNameRoom;
     public GameObject btnConect;
+    public GameObject btnCreateRoom;
+    public WindowHandler windowHandler;
+    public Transform contentPlayer;
+
+    private int countPlayer = 0;
+
+    [Header("Prefabs")]
+    public GameObject nicknamePlayer;
 
     void Start()
     {
-        btnConect.SetActive(false);
+        btnConect.SetActive(true);
+        btnCreateRoom.SetActive(false);
         textStatus.text = "";
     }
 
@@ -44,7 +56,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
         Debug.Log("Conectados al servidor!");
         textStatus.text = "Bienvenido "+ PhotonNetwork.NickName +" pues";
-        btnConect.SetActive(true);
+        btnConect.SetActive(false);
+        btnCreateRoom.SetActive(true);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -70,6 +83,26 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        textNameRoom.text = PhotonNetwork.CurrentRoom.Name;
+        windowHandler.enabledWindow(2);
+        StartCoroutine(UpdateRoomTexts());
         Debug.Log("Estamos conectados a la sala: " + PhotonNetwork.CurrentRoom.Name + " Bienvenido " + PhotonNetwork.NickName);
+    }
+
+    IEnumerator UpdateRoomTexts()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount != countPlayer)
+        {
+            countPlayer = PhotonNetwork.CurrentRoom.PlayerCount;
+            foreach (var item in PhotonNetwork.CurrentRoom.Players)
+            {
+                GameObject nickname = Instantiate(nicknamePlayer, contentPlayer);
+                nickname.GetComponent<TMP_Text>().text = item.Value.NickName;
+            }
+        }
+        
+        
     }
 }

@@ -5,7 +5,6 @@ using System;
 public class PlayerInputEvents : MonoBehaviour
 {
     public static event Action<Vector2> OnMove;
-    public static event Action<Vector2> Saque;
     private GameInput input;
 
     private void Awake()
